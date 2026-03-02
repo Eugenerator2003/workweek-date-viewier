@@ -19,6 +19,8 @@ namespace DateViewier.Models
 
         public WorkCalendar(Workday firstWorkday, WorkweekInfo workweekInfo)
         {
+            ArgumentNullException.ThrowIfNull(firstWorkday);
+            ArgumentNullException.ThrowIfNull(workweekInfo);
             FirstWorkday = firstWorkday;
             WorkweekInfo = workweekInfo;
         }
@@ -39,9 +41,11 @@ namespace DateViewier.Models
             return GetSchedule(firstYearDay, lastYearDay);
         }
 
-        private Day[,] GetSchedule(Day firstDay, Day lastDay)
+        private Day[,] GetSchedule(Day startDay, Day endDate)
         {
-            ScheduleInfo context = GetScheduleContext(firstDay, lastDay);
+            if (startDay.Date > endDate.Date)
+                throw new ArgumentException("Start day date can not be greather than last day date");
+            ScheduleInfo context = GetScheduleContext(startDay, endDate);
             Day[] days = new Day[context.Weeks * 7];
             (DateOnly firstWorkday, int firstWorkdayPosition) = GetFirstWorkdayForDays(context.Start, context.End);
             return TransformDaysToTable(FillWorkweeksByInfo(days, firstWorkday, firstWorkdayPosition));
@@ -49,6 +53,8 @@ namespace DateViewier.Models
 
         private Day[] FillWorkweeksByInfo(Day[] days, DateOnly firstWorkdayDate, int firstWorkdayIndex)
         {
+            ArgumentNullException.ThrowIfNull(days);
+            ArgumentOutOfRangeException.ThrowIfNegative(firstWorkdayIndex);
             int backIndex = firstWorkdayIndex - 1;
             int backDayNumber = firstWorkdayDate.DayNumber - 1;
             while (backIndex >= 0)
@@ -79,6 +85,7 @@ namespace DateViewier.Models
 
         private Day[,] TransformDaysToTable(Day[] days)
         {
+            ArgumentNullException.ThrowIfNull(days);
             if (days.Length % 7 != 0)
             {
                 throw new ArgumentException("Can't divide range of days with no divisible by 7 into weeks");
@@ -97,6 +104,8 @@ namespace DateViewier.Models
 
         private ScheduleInfo GetScheduleContext(Day startDay, Day endDay)
         {
+            if (startDay.Date > endDay.Date)
+                throw new ArgumentException("Start day date can not be greather than end day date");
             int days = endDay.Date.DayNumber - startDay.Date.DayNumber;
             ScheduleInfo scheduleContext = new ScheduleInfo();
             scheduleContext.Weeks = days / 7;
@@ -115,6 +124,8 @@ namespace DateViewier.Models
 
         private (DateOnly, int) GetFirstWorkdayForDays(DateOnly startDate, DateOnly endDate)
         {
+            if (startDate > endDate)
+                throw new ArgumentException("Start date can not be greather than end date");
             int index = 0;
             for (; startDate < endDate; startDate = startDate.AddDays(1), index++)
             {
