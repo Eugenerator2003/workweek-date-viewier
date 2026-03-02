@@ -6,6 +6,13 @@ namespace DateViewier.Models
 {
     public class WorkCalendar
     {
+        private struct ScheduleInfo
+        {
+            public DateOnly Start;
+            public DateOnly End;
+            public int Weeks;
+        }
+
         public Workday FirstWorkday { get; set; }
 
         public WorkweekInfo WorkweekInfo { get; set; }
@@ -21,44 +28,22 @@ namespace DateViewier.Models
             DateOnly correctMonthDate = new DateOnly(monthDate.Year, monthDate.Month, 1);
             Day firstMonthDay = new Day(correctMonthDate);
             Day lastMonthDay = new Day(correctMonthDate.AddMonths(1).AddDays(-1));
-            DateOnly firstDay = firstMonthDay.Date;
-            DateOnly lastDay = lastMonthDay.Date;
-            int tableRows = 4;
-            if (firstMonthDay.WeekPosition != 0)
-            {
-                tableRows++;
-                firstDay = firstDay.AddDays(-firstMonthDay.WeekPosition);
-            }
-            if (lastMonthDay.WeekPosition != 6)
-            {
-                tableRows++;
-                lastDay = lastDay.AddDays(6 - lastMonthDay.WeekPosition);
-            }
-            Day[] days = new Day[tableRows * 7];
-            (DateOnly firstWorkday, int firstWorkdayPosition) = GetFirstWorkdayForDays(firstDay, lastDay);
-            return TransformDaysToTable(FillWorkweeksByInfo(days, firstWorkday, firstWorkdayPosition));
+            return GetSchedule(firstMonthDay, lastMonthDay);
         }
 
         public Day[,] GetYearlySchedule(DateOnly yearDate)
         {
             DateOnly correctMonthDate = new DateOnly(yearDate.Year, 1, 1);
-            Day firstMonthDay = new Day(correctMonthDate);
-            Day lastMonthDay = new Day(correctMonthDate.AddYears(1).AddDays(-1));
-            DateOnly firstDay = firstMonthDay.Date;
-            DateOnly lastDay = lastMonthDay.Date;
-            int tableRows = 52;
-            if (firstMonthDay.WeekPosition != 0)
-            {
-                tableRows++;
-                firstDay = firstDay.AddDays(-firstMonthDay.WeekPosition);
-            }
-            if (lastMonthDay.WeekPosition != 6)
-            {
-                tableRows++;
-                lastDay = lastDay.AddDays(6 - lastMonthDay.WeekPosition);
-            }
-            Day[] days = new Day[tableRows * 7];
-            (DateOnly firstWorkday, int firstWorkdayPosition) = GetFirstWorkdayForDays(firstDay, lastDay);
+            Day firstYearDay = new Day(correctMonthDate);
+            Day lastYearDay = new Day(correctMonthDate.AddYears(1).AddDays(-1));
+            return GetSchedule(firstYearDay, lastYearDay);
+        }
+
+        private Day[,] GetSchedule(Day firstDay, Day lastDay)
+        {
+            ScheduleInfo context = GetScheduleContext(firstDay, lastDay);
+            Day[] days = new Day[context.Weeks * 7];
+            (DateOnly firstWorkday, int firstWorkdayPosition) = GetFirstWorkdayForDays(context.Start, context.End);
             return TransformDaysToTable(FillWorkweeksByInfo(days, firstWorkday, firstWorkdayPosition));
         }
 
@@ -108,6 +93,24 @@ namespace DateViewier.Models
                 }
             }
             return table;
+        }
+
+        private ScheduleInfo GetScheduleContext(Day startDay, Day endDay)
+        {
+            int days = endDay.Date.DayNumber - startDay.Date.DayNumber;
+            ScheduleInfo scheduleContext = new ScheduleInfo();
+            scheduleContext.Weeks = days / 7;
+            if (startDay.WeekPosition != 0)
+            {
+                scheduleContext.Weeks++;
+                scheduleContext.Start = startDay.Date.AddDays(-startDay.WeekPosition);
+            }
+            if (endDay.WeekPosition != 6)
+            {
+                scheduleContext.Weeks++;
+                scheduleContext.End = endDay.Date.AddDays(6 - endDay.WeekPosition);
+            }
+            return scheduleContext;
         }
 
         private (DateOnly, int) GetFirstWorkdayForDays(DateOnly startDate, DateOnly endDate)
