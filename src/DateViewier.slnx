@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="../tests/DateViewier.Models.Tests/DateViewier.Models.Tests.csproj" Id="8842d506-d1bd-4542-917c-dbf35d573041" />
+  <Project Path="DateViewier.AndroidApp/DateViewier.AndroidApp.csproj" Id="498a1f28-103e-4c1e-a929-30891e0d7162" />
   <Project Path="DateViewier.Models/DateViewier.Models.csproj" Id="188340eb-3448-4920-b42d-1c9613aa8c49" />
 </Solution>
