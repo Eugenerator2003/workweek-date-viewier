@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DateViewier.AndroidApp.Repositories;
+using DateViewier.AndroidApp.Services;
+using DateViewier.Models;
+using Microsoft.Extensions.Logging;
 
 namespace DateViewier.AndroidApp
 {
@@ -15,12 +18,14 @@ namespace DateViewier.AndroidApp
                 });
 
             builder.Services.AddMauiBlazorWebView();
-
+            builder.Services.AddTransient<IInstanceRepistory<WorkCalendar>, WorkCalendarPreferencesRepository>();
+            builder.Services.AddTransient<IInstanceRepistory<WorkweekInfo>, WorkweekInfoPreferencesRepository>();
+            builder.Services.AddTransient<WorkCalendarService>();
+            builder.Services.AddTransient<WorkweekInfoService>();
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
-
             return builder.Build();
         }
     }

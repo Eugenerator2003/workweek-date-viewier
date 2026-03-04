@@ -1,5 +1,135 @@
-﻿@page "/"
+﻿@using DateViewier.Models
+@inject WorkweekInfoService workweekInfoService
+@inject WorkCalendarService workCalendarService
 
-<h1>Hello, world!</h1>
+@page "/"
 
-Welcome to your new app.
+<div>
+    <div>
+        <form>
+            <div>
+                <label>Первый рабочий день</label>
+                <InputDate TValue="DateOnly"
+                           Value="workCalendarViewModel.Date"
+                           ValueChanged="FirstWorkdayDateChanged"
+                           ValueExpression="() => workCalendarViewModel.Date"/>
+            </div>
+            <div>
+                <label>Тип календаря</label>
+                <InputRadioGroup 
+                    TValue="ScheduleModel.Type"
+                    Value="scheduleModel.ScheduleType"
+                    ValueChanged="ScheduleTypeChanged"
+                    ValueExpression="() => scheduleModel.ScheduleType">
+                    @foreach (var e in Enum.GetValues<ScheduleModel.Type>())
+                    {
+                        <label>
+                            <InputRadio Value="e" /> @e.ToString()
+                        </label>
+                    }
+                </InputRadioGroup>
+            </div>
+        </form>
+    </div>
+    <div>
+        <h2>Календарь</h2>
+        @if (scheduleModel.ScheduleType == ScheduleModel.Type.ByMonth)
+        {
+            <div>
+                <button @onclick="PreviousMonth">Назад</button>
+                Месяц @scheduleModel.ScheduleReferenceDate.Month Год @scheduleModel.ScheduleReferenceDate.Year
+                <button @onclick="NextMonth">Вперед</button>
+            </div>
+        }
+        else
+        {
+            <div>
+                <button @onclick="PreviousYear">Назад</button>
+                Год @scheduleModel.ScheduleReferenceDate.Year
+                <button @onclick="NextYear">Вперед</button>
+            </div>
+        }
+        <div>
+            <ScheduleTable Days="GetSchedule()" ShowMonth="scheduleModel.ScheduleType == ScheduleModel.Type.ByYear"></ScheduleTable>
+        </div>
+    </div>
+</div>
+
+@code {
+    private class ScheduleModel
+    {
+        public enum Type
+        {
+            ByMonth,
+            ByYear,
+        }
+
+        public Type ScheduleType { get; set; }
+
+        public DateOnly ScheduleReferenceDate { get; set; }
+    }
+
+    private ScheduleModel scheduleModel = null!;
+    private WorkCalendarViewModel workCalendarViewModel = null!;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        workCalendarViewModel = new WorkCalendarViewModel();
+        workCalendarViewModel.Date = workCalendarService.GetFirstWorkdayDate();
+        scheduleModel = new ScheduleModel();
+        scheduleModel.ScheduleType = ScheduleModel.Type.ByMonth;
+        scheduleModel.ScheduleReferenceDate = DateOnly.FromDateTime(DateTime.Now);
+    }
+
+    private async Task FirstWorkdayDateChanged(DateOnly date)
+    {
+        workCalendarService.SetFirstWorkday(date);
+        scheduleModel.ScheduleReferenceDate = date;
+        workCalendarViewModel.Date = date;
+        ShouldRender();
+    }
+
+    private async Task ScheduleTypeChanged(ScheduleModel.Type type)
+    {
+        scheduleModel.ScheduleType = type;
+        scheduleModel.ScheduleReferenceDate = DateOnly.FromDateTime(DateTime.Now);
+        ShouldRender();
+    }
+
+    private DayViewModel[,] GetSchedule()
+    {
+        if (scheduleModel.ScheduleType == ScheduleModel.Type.ByMonth)
+        {
+            return workCalendarService.GetScheduleByMonth(scheduleModel.ScheduleReferenceDate);
+        }
+        else
+        {
+            return workCalendarService.GetScheduleByYear(scheduleModel.ScheduleReferenceDate);
+        }
+    }
+
+    private void PreviousMonth()
+    {
+        scheduleModel.ScheduleReferenceDate = scheduleModel.ScheduleReferenceDate.AddMonths(-1);
+        ShouldRender();
+    }
+
+    private void NextMonth()
+    {
+        scheduleModel.ScheduleReferenceDate = scheduleModel.ScheduleReferenceDate.AddMonths(1);
+        ShouldRender();
+    }
+
+    private void PreviousYear()
+    {
+        scheduleModel.ScheduleReferenceDate = scheduleModel.ScheduleReferenceDate.AddYears(-1);
+        ShouldRender();
+    }
+
+    private void NextYear()
+    {
+        scheduleModel.ScheduleReferenceDate = scheduleModel.ScheduleReferenceDate.AddYears(1);
+        ShouldRender();
+    }
+}

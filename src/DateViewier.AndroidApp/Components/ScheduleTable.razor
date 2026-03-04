@@ -1,0 +1,68 @@
+﻿<table>
+    <thead>
+        <tr>
+            <th>
+                Пн
+            </th>
+            <th>
+                Вт
+            </th>
+            <th>
+                Ср
+            </th>
+            <th>
+                Чт
+            </th>
+            <th>
+                Пт
+            </th>
+            <th>
+                Сб
+            </th>
+            <th>
+                Вск
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Days.GetLength(0); i++)
+        {
+            <tr>
+                @for (int j = 0; j < 7; j++)
+                {
+                    @* <td class="@(Days[i, j].Type == DayViewModel.DayType.Workday ? "workday" : "dayoff")"> *@
+                    <td style="@(Days[i, j].Type == DayViewModel.DayType.Workday ? "color: red;" : "color: green;")">
+                        @if (ShowMonth)
+                        {
+                            @Days[i, j].Date.ToString("dd.MM")
+                        }
+                        else
+                        {
+                            @Days[i, j].Date.ToString("dd")
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public required DayViewModel[,] Days
+    {
+        get;
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value);
+            if (value.GetLength(1) != 7)
+            {
+                throw new ArgumentException("Days table must be suit for 7-days week");
+            }
+            field = value;
+        }
+    }
+
+    [Parameter]
+    public bool ShowMonth { get; set; }
+}
