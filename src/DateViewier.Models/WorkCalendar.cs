@@ -109,6 +109,8 @@ namespace DateViewier.Models
             int days = endDay.Date.DayNumber - startDay.Date.DayNumber;
             ScheduleInfo scheduleContext = new ScheduleInfo();
             scheduleContext.Weeks = days / 7;
+            scheduleContext.Start = startDay.Date;
+            scheduleContext.End = endDay.Date;
             if (startDay.WeekPosition != 0)
             {
                 scheduleContext.Weeks++;
