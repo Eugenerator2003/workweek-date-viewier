@@ -22,6 +22,9 @@ namespace DateViewier.AndroidApp
             builder.Services.AddTransient<IInstanceRepistory<WorkweekInfo>, WorkweekInfoPreferencesRepository>();
             builder.Services.AddTransient<WorkCalendarService>();
             builder.Services.AddTransient<WorkweekInfoService>();
+
+            builder.Services.AddLocalization();
+
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();

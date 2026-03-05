@@ -73,6 +73,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Update="Localization\SharedResource.resx">
+        <Generator></Generator>
+      </EmbeddedResource>
       <EmbeddedResource Update="Resources\SharedResource.resx">
         <Generator></Generator>
       </EmbeddedResource>
