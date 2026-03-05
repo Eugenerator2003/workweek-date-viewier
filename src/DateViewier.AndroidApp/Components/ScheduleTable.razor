@@ -1,52 +1,68 @@
-﻿<table>
-    <thead>
-        <tr>
-            <th>
-                Пн
-            </th>
-            <th>
-                Вт
-            </th>
-            <th>
-                Ср
-            </th>
-            <th>
-                Чт
-            </th>
-            <th>
-                Пт
-            </th>
-            <th>
-                Сб
-            </th>
-            <th>
-                Вск
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (int i = 0; i < Days.GetLength(0); i++)
-        {
+﻿<div class="d-flex flex-column">
+    <table class="table">
+        <thead>
             <tr>
-                @for (int j = 0; j < 7; j++)
-                {
-                    @* <td class="@(Days[i, j].Type == DayViewModel.DayType.Workday ? "workday" : "dayoff")"> *@
-                    <td style="@(Days[i, j].Type == DayViewModel.DayType.Workday ? "color: red;" : "color: green;")">
-                        @if (ShowMonth)
-                        {
-                            @Days[i, j].Date.ToString("dd.MM")
-                        }
-                        else
-                        {
-                            @Days[i, j].Date.ToString("dd")
-                        }
-                    </td>
-                }
+                <th>
+                    Пн
+                </th>
+                <th>
+                    Вт
+                </th>
+                <th>
+                    Ср
+                </th>
+                <th>
+                    Чт
+                </th>
+                <th>
+                    Пт
+                </th>
+                <th class="weekend">
+                    Сб
+                </th>
+                <th class="weekend">
+                    Вск
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
-
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Days.GetLength(0); i++)
+            {
+                <tr>
+                    @for (int j = 0; j < 7; j++)
+                    {
+                        string classes = Days[i, j].Type == DayViewModel.DayType.Workday ? "workday" : "dayoff";
+                        if (j == 5 || j == 6)
+                        {
+                            classes += " weekend";
+                        }
+                        <td class="@classes">
+                            @if (ShowMonth)
+                            {
+                                @Days[i, j].Date.ToString("dd.MM")
+                            }
+                            else
+                            {
+                                @Days[i, j].Date.ToString("dd")
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="d-flex flex-column legend p-3 pt-2 pb-2 mt-0 flex-grow-1">
+        <div class="d-flex align-items-center">
+            <span class="square workday"></span> - рабочий день
+        </div>
+        <div class="d-flex align-items-center">
+            <span class="square dayoff"></span> - выходной день
+        </div>
+        <div class="d-flex align-items-center">
+            <span class="square transfer"></span>- возможен перенос
+        </div>
+    </div>
+</div>
 @code {
     [Parameter]
     public required DayViewModel[,] Days

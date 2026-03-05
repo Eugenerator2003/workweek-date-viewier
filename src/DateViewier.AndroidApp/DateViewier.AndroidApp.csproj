@@ -67,4 +67,8 @@
       <ProjectReference Include="..\DateViewier.Models\DateViewier.Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\fonts\" />
+    </ItemGroup>
+
 </Project>
