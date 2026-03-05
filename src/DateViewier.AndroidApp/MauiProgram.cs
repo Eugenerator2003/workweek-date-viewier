@@ -26,7 +26,10 @@ namespace DateViewier.AndroidApp
             builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
-            return builder.Build();
+
+            var app = builder.Build();
+            app.SetTwoTwoWorkweek();
+            return app;
         }
     }
 }
