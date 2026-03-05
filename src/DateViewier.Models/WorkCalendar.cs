@@ -106,7 +106,7 @@ namespace DateViewier.Models
         {
             if (startDay.Date > endDay.Date)
                 throw new ArgumentException("Start day date can not be greather than end day date");
-            int days = endDay.Date.DayNumber - startDay.Date.DayNumber;
+            int days = endDay.Date.DayNumber - startDay.Date.DayNumber + 1;
             ScheduleInfo scheduleContext = new ScheduleInfo();
             scheduleContext.Weeks = days / 7;
             scheduleContext.Start = startDay.Date;
@@ -116,11 +116,17 @@ namespace DateViewier.Models
                 scheduleContext.Weeks++;
                 scheduleContext.Start = startDay.Date.AddDays(-startDay.WeekPosition);
             }
-            if (endDay.WeekPosition != 6)
+            if (endDay.WeekPosition < startDay.WeekPosition)
             {
                 scheduleContext.Weeks++;
                 scheduleContext.End = endDay.Date.AddDays(6 - endDay.WeekPosition);
             }
+            //if (endDay.WeekPosition != 6)
+            //{
+            //    scheduleContext.Weeks++;
+            //    scheduleContext.End = endDay.Date.AddDays(6 - endDay.WeekPosition);
+            //}
+            
             return scheduleContext;
         }
 
