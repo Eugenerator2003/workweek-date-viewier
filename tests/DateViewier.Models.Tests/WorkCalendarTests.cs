@@ -52,7 +52,7 @@ namespace DateViewier.Models.Tests
             WorkweekInfo info = new WorkweekInfo(5, 2);
             WorkCalendar workCalendar = new WorkCalendar(workday, info);
             Day[,] schedule = workCalendar.GetYearlySchedule(new DateOnly(2026, 1, 1));
-            Assert.AreEqual(54, schedule.GetLength(0));
+            Assert.AreEqual(53, schedule.GetLength(0));
             Assert.AreEqual(7, schedule.GetLength(1));
             DateOnly baseDate = new DateOnly(2025, 12, 29);
             for (int i = 0; i < 6; i++)
@@ -115,7 +115,7 @@ namespace DateViewier.Models.Tests
             WorkweekInfo info = new WorkweekInfo(2, 2);
             WorkCalendar workCalendar = new WorkCalendar(workday, info);
             Day[,] schedule = workCalendar.GetYearlySchedule(new DateOnly(2026, 1, 1));
-            Assert.AreEqual(54, schedule.GetLength(0));
+            Assert.AreEqual(53, schedule.GetLength(0));
             Assert.AreEqual(7, schedule.GetLength(1));
             DateOnly baseDate = new DateOnly(2025, 12, 29);
             int daysCount = 1;
