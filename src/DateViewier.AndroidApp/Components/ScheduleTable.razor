@@ -1,27 +1,29 @@
-﻿<div class="d-flex flex-column">
+﻿@inject IStringLocalizer<SharedResource> localizer
+
+<div class="d-flex flex-column">
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    Пн
+                    @localizer["monday"]
                 </th>
                 <th>
-                    Вт
+                    @localizer["tuesday"]
                 </th>
                 <th>
-                    Ср
+                    @localizer["wednesday"]
                 </th>
                 <th>
-                    Чт
+                    @localizer["thursday"]
                 </th>
                 <th>
-                    Пт
+                    @localizer["friday"]
                 </th>
                 <th class="weekend">
-                    Сб
+                    @localizer["saturday"]
                 </th>
                 <th class="weekend">
-                    Вск
+                    @localizer["sunday"]
                 </th>
             </tr>
         </thead>
@@ -53,13 +55,13 @@
     </table>
     <div class="d-flex flex-column legend p-3 pt-2 pb-2 mt-0 flex-grow-1">
         <div class="d-flex align-items-center">
-            <span class="square workday"></span> - рабочий день
+            <span class="square workday"></span> - @localizer["legend.workday"]
         </div>
         <div class="d-flex align-items-center">
-            <span class="square dayoff"></span> - выходной день
+            <span class="square dayoff"></span> - @localizer["legend.dayoff"]
         </div>
         <div class="d-flex align-items-center">
-            <span class="square transfer"></span>- возможен перенос
+            <span class="square transfer"></span>- @localizer["legend.transfer"]
         </div>
     </div>
 </div>
