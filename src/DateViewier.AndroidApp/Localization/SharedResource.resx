@@ -150,8 +150,8 @@
   <data name="legend.dayoff" xml:space="preserve">
     <value>day off</value>
   </data>
-  <data name="legend.transfer" xml:space="preserve">
-    <value>the day off may be rescheduled</value>
+  <data name="legend.rescheduled" xml:space="preserve">
+    <value>the workday may be rescheduled (except for Radunitsa)</value>
   </data>
   <data name="legend.workday" xml:space="preserve">
     <value>workday</value>

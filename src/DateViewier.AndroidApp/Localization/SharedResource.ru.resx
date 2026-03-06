@@ -150,8 +150,8 @@
   <data name="legend.dayoff" xml:space="preserve">
     <value>выходной</value>
   </data>
-  <data name="legend.transfer" xml:space="preserve">
-    <value>возможен перенос</value>
+  <data name="legend.rescheduled" xml:space="preserve">
+    <value>возможен перенос рабочего (кроме Радуницы)</value>
   </data>
   <data name="legend.workday" xml:space="preserve">
     <value>рабочий день</value>

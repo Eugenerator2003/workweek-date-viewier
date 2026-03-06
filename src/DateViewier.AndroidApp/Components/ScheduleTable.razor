@@ -1,4 +1,5 @@
 ﻿@inject IStringLocalizer<SharedResource> localizer
+@inject HolidayService holidayService
 
 <div class="d-flex flex-column">
     <table class="table">
@@ -34,10 +35,15 @@
                     @for (int j = 0; j < 7; j++)
                     {
                         string classes = Days[i, j].Type == DayViewModel.DayType.Workday ? "workday" : "dayoff";
-                        if (j == 5 || j == 6)
+                        if (j == 5 || j == 6 || holidayService.IsHoliday(Days[i, j].Date))
                         {
                             classes += " weekend";
                         }
+                        else if (holidayService.MayRescheduleBaseWorkweekDay(Days[i, j].Date))
+                        {
+                            classes += " reschedule";
+                        }
+
                         if (Days[i, j].Date == DateOnly.FromDateTime(DateTime.Now))
                         {
                             classes += " today";
@@ -59,16 +65,16 @@
     </table>
     <div class="d-flex flex-column legend p-3 pt-2 pb-2 mt-0 flex-grow-1">
         <div class="d-flex align-items-center">
-            <span class="square today"></span> - @localizer["legend.today"]
+            <span class="square today"></span> @localizer["legend.today"]
         </div>
         <div class="d-flex align-items-center">
-            <span class="square workday"></span> - @localizer["legend.workday"]
+            <span class="square workday"></span> @localizer["legend.workday"]
         </div>
         <div class="d-flex align-items-center">
-            <span class="square dayoff"></span> - @localizer["legend.dayoff"]
+            <span class="square dayoff"></span> @localizer["legend.dayoff"]
         </div>
         <div class="d-flex align-items-center">
-            <span class="square transfer"></span>- @localizer["legend.transfer"]
+            <span class="square reschedule"></span> @localizer["legend.rescheduled"]
         </div>
     </div>
 </div>
