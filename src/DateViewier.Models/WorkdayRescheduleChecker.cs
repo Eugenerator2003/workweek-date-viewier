@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DateViewier.Models
 {
@@ -25,6 +26,12 @@ namespace DateViewier.Models
         public WorkdayRescheduleChecker()
         {
             PublicHolidays = new List<DateOnly>();
+        }
+
+        public bool IsHoliday(DateOnly date)
+        {
+            var comparer = new DateOnlyComparer();
+            return PublicHolidays.Contains(date, comparer);
         }
 
         public bool MayRescheduleBaseWorkweekDay(DateOnly workdayDate)
