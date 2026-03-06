@@ -97,6 +97,10 @@ body {
     height: 100%;
 }
 
+#app > #loading {
+    font-size: 6rem;
+}
+
 header {
     height: calc(4rem * (var(--scale) + 0.1));
     padding: 0 calc(1rem * var(--scale));
@@ -235,7 +239,7 @@ td {
 
 .today {
     font-weight: 800 !important;
-    box-shadow: inset 0 0 0 calc(3px * var(--scale)) #3b82f6 !important;
+    box-shadow: inset 0 0 0 calc(2px * var(--scale)) #3b82f6 !important;
     border-radius: calc(4px * var(--scale));
     position: relative;
     z-index: 1;

@@ -62,7 +62,7 @@
                         <div class="d-flex flex-row">
                             @foreach (var e in Enum.GetValues<ScheduleModel.Type>())
                             {
-                                <label class="m-auto">
+                                <label class="m-auto d-flex align-content-center">
                                     <InputRadio Value="e" /> @localizer["calendar.type." + e.ToString().ToLower()]
                                 </label>
                             }
