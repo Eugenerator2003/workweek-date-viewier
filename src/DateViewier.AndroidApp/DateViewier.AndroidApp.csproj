@@ -20,7 +20,7 @@
         <Nullable>enable</Nullable>
 
         <!-- Display name -->
-        <ApplicationTitle>DateViewier.AndroidApp</ApplicationTitle>
+        <ApplicationTitle>Рабочий календарь</ApplicationTitle>
 
         <!-- App Identifier -->
         <ApplicationId>com.companyname.dateviewier.androidapp</ApplicationId>
@@ -41,10 +41,9 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />-->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#FFFFFF" ForegroundScale="0.65"/>
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#FFFFFF" ForegroundScale="0.65" />
 
-        <!-- Splash Screen -->
+      <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
         <!-- Images -->
@@ -80,6 +79,10 @@
       <EmbeddedResource Update="Resources\SharedResource.resx">
         <Generator></Generator>
       </EmbeddedResource>
+</ItemGroup>
+
+    <ItemGroup>
+      <None Update="Resources\AppIcon\bg.svg" ForegroundFile="Resources\AppIcon\appicon.svg" ForegroundScale="0.65" />
     </ItemGroup>
 
 </Project>
