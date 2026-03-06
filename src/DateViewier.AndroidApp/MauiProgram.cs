@@ -2,6 +2,7 @@
 using DateViewier.AndroidApp.Services;
 using DateViewier.Models;
 using Microsoft.Extensions.Logging;
+using System.Globalization;
 
 namespace DateViewier.AndroidApp
 {
@@ -24,15 +25,22 @@ namespace DateViewier.AndroidApp
             builder.Services.AddTransient<WorkweekInfoService>();
 
             builder.Services.AddLocalization();
-
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
+            SetCultureInfo();
 
             var app = builder.Build();
             app.SetTwoTwoWorkweek();
             return app;
+        }
+
+        private static void SetCultureInfo()
+        {
+            CultureInfo info = new CultureInfo("ru-Ru");
+            CultureInfo.DefaultThreadCurrentCulture = info;
+            CultureInfo.DefaultThreadCurrentUICulture = info;
         }
     }
 }
