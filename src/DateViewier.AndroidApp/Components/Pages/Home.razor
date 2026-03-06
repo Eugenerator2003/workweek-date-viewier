@@ -6,6 +6,9 @@
 @page "/"
 
 <div class="d-flex flex-column h-100 content @(showToolsDiv ? "" : "hide-tools-div")">
+    <div class="d-flex justify-content-centerm m-0 m-auto mt-3 today-date text-center">
+        @localizer["calendar.today", localizer[Months.TodayPlaceholders[DateTime.Today.Month - 1]], DateTime.Today.Day]
+    </div>
     <div class="table-div h-100">
         <div class="d-flex flex-row justify-content-center gap-0 sticky-top button-panel">
             @if (scheduleModel.ScheduleType == ScheduleModel.Type.ByMonth)

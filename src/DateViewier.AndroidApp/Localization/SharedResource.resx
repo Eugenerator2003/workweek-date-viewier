@@ -132,6 +132,9 @@
   <data name="calendar.firstworkday" xml:space="preserve">
     <value>First workday date</value>
   </data>
+  <data name="calendar.today" xml:space="preserve">
+    <value>Today is {0} {1}</value>
+  </data>
   <data name="calendar.type.bymonth" xml:space="preserve">
     <value>Monthly</value>
   </data>
@@ -159,37 +162,73 @@
   <data name="months.april" xml:space="preserve">
     <value>April</value>
   </data>
+  <data name="months.today.april" xml:space="preserve">
+    <value>April</value>
+  </data>
   <data name="months.august" xml:space="preserve">
+    <value>August</value>
+  </data>
+  <data name="months.today.august" xml:space="preserve">
     <value>August</value>
   </data>
   <data name="months.december" xml:space="preserve">
     <value>December</value>
   </data>
+  <data name="months.today.december" xml:space="preserve">
+    <value>December</value>
+  </data>
   <data name="months.february" xml:space="preserve">
+    <value>February</value>
+  </data>
+  <data name="months.today.february" xml:space="preserve">
     <value>February</value>
   </data>
   <data name="months.january" xml:space="preserve">
     <value>January</value>
   </data>
+  <data name="months.today.january" xml:space="preserve">
+    <value>January</value>
+  </data>
   <data name="months.july" xml:space="preserve">
+    <value>July</value>
+  </data>
+  <data name="months.today.july" xml:space="preserve">
     <value>July</value>
   </data>
   <data name="months.june" xml:space="preserve">
     <value>June</value>
   </data>
+  <data name="months.today.june" xml:space="preserve">
+    <value>June</value>
+  </data>
   <data name="months.march" xml:space="preserve">
+    <value>March</value>
+  </data>
+  <data name="months.today.march" xml:space="preserve">
     <value>March</value>
   </data>
   <data name="months.may" xml:space="preserve">
     <value>May</value>
   </data>
+  <data name="months.today.may" xml:space="preserve">
+    <value>May</value>
+  </data>
   <data name="months.november" xml:space="preserve">
+    <value>November</value>
+  </data>
+  <data name="months.today.november" xml:space="preserve">
     <value>November</value>
   </data>
   <data name="months.october" xml:space="preserve">
     <value>October</value>
   </data>
+  <data name="months.today.october" xml:space="preserve">
+    <value>October</value>
+  </data>
   <data name="months.september" xml:space="preserve">
+    <value>September</value>
+  </data>
+  <data name="months.today.september" xml:space="preserve">
     <value>September</value>
   </data>
   <data name="saturday" xml:space="preserve">
@@ -209,5 +248,8 @@
   </data>
   <data name="wednesday" xml:space="preserve">
     <value>Wed.</value>
+  </data>
+  <data name="legend.today" xml:space="preserve">
+    <value>today</value>
   </data>
 </root>

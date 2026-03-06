@@ -38,6 +38,10 @@
                         {
                             classes += " weekend";
                         }
+                        if (Days[i, j].Date == DateOnly.FromDateTime(DateTime.Now))
+                        {
+                            classes += " today";
+                        }
                         <td class="@classes">
                             @if (ShowMonth)
                             {
@@ -54,6 +58,9 @@
         </tbody>
     </table>
     <div class="d-flex flex-column legend p-3 pt-2 pb-2 mt-0 flex-grow-1">
+        <div class="d-flex align-items-center">
+            <span class="square today"></span> - @localizer["legend.today"]
+        </div>
         <div class="d-flex align-items-center">
             <span class="square workday"></span> - @localizer["legend.workday"]
         </div>
