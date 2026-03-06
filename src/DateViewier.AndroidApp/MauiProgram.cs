@@ -21,8 +21,11 @@ namespace DateViewier.AndroidApp
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddTransient<IInstanceRepistory<WorkCalendar>, WorkCalendarPreferencesRepository>();
             builder.Services.AddTransient<IInstanceRepistory<WorkweekInfo>, WorkweekInfoPreferencesRepository>();
+            builder.Services.AddTransient<IOnlyLoadInstanceRepositoy<WorkdayRescheduleChecker>, WorkdayRescheduleCheckerMemoryRepository>();
+
             builder.Services.AddTransient<WorkCalendarService>();
             builder.Services.AddTransient<WorkweekInfoService>();
+            builder.Services.AddTransient<HolidayService>();
 
             builder.Services.AddLocalization();
 #if DEBUG
